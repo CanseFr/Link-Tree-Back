@@ -1,11 +1,12 @@
 import {
-  Controller,
-  Get,
-  Post,
   Body,
-  Patch,
-  Param,
+  Controller,
   Delete,
+  Get,
+  Param,
+  ParseIntPipe,
+  Patch,
+  Post,
 } from '@nestjs/common';
 import { BranchsService } from './branchs.service';
 import { CreateBranchDto } from './dto/create-branch.dto';
@@ -32,19 +33,22 @@ export class BranchsController {
 
   @Get(':id')
   @ApiOkResponse({ type: BranchEntity })
-  findOne(@Param('id') id: string) {
-    return this.branchsService.findOne(+id);
+  findOne(@Param('id', ParseIntPipe) id: number) {
+    return this.branchsService.findOne(id);
   }
 
   @Patch(':id')
   @ApiOkResponse({ type: BranchEntity })
-  update(@Param('id') id: string, @Body() updateBranchDto: UpdateBranchDto) {
-    return this.branchsService.update(+id, updateBranchDto);
+  update(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() updateBranchDto: UpdateBranchDto,
+  ) {
+    return this.branchsService.update(id, updateBranchDto);
   }
 
   @Delete(':id')
   @ApiOkResponse({ type: BranchEntity })
-  remove(@Param('id') id: string) {
-    return this.branchsService.remove(+id);
+  remove(@Param('id', ParseIntPipe) id: number) {
+    return this.branchsService.remove(id);
   }
 }
