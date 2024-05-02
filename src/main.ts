@@ -12,8 +12,9 @@ async function bootstrap() {
 
   const config = new DocumentBuilder()
     .setTitle('Link Tree')
-    .setDescription('The Median API description')
+    .setDescription('The Link Tree Description')
     .setVersion('0.1')
+    .addBearerAuth()
     .build();
 
   const document = SwaggerModule.createDocument(app, config);
