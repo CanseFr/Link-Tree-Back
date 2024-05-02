@@ -3,7 +3,6 @@ import {
   Controller,
   Delete,
   Get,
-  NotFoundException,
   Param,
   ParseIntPipe,
   Patch,
@@ -22,38 +21,37 @@ export class BranchsController {
 
   @Post()
   @ApiOkResponse({ type: BranchEntity })
-  create(@Body() createBranchDto: CreateBranchDto) {
-    return this.branchsService.create(createBranchDto);
+  async create(@Body() createBranchDto: CreateBranchDto) {
+    return new BranchEntity(await this.branchsService.create(createBranchDto));
   }
 
   @Get()
   @ApiOkResponse({ type: BranchEntity, isArray: true })
-  findAll() {
-    return this.branchsService.findAll();
+  async findAll() {
+    const articles = await this.branchsService.findAll();
+    return articles.map((branch) => new BranchEntity(branch));
   }
 
   @Get(':id')
   @ApiOkResponse({ type: BranchEntity })
-  async findOne(@Param('id') id: string) {
-    const branch = await this.branchsService.findOne(+id);
-    if (!branch) {
-      throw new NotFoundException(`Article with ${id} does not exist.`);
-    }
-    return branch;
+  async findOne(@Param('id', ParseIntPipe) id: number) {
+    return new BranchEntity(await this.branchsService.findOne(id));
   }
 
   @Patch(':id')
   @ApiOkResponse({ type: BranchEntity })
-  update(
+  async update(
     @Param('id', ParseIntPipe) id: number,
     @Body() updateBranchDto: UpdateBranchDto,
   ) {
-    return this.branchsService.update(id, updateBranchDto);
+    return new BranchEntity(
+      await this.branchsService.update(id, updateBranchDto),
+    );
   }
 
   @Delete(':id')
   @ApiOkResponse({ type: BranchEntity })
-  remove(@Param('id', ParseIntPipe) id: number) {
-    return this.branchsService.remove(id);
+  async remove(@Param('id', ParseIntPipe) id: number) {
+    return new BranchEntity(await this.branchsService.remove(id));
   }
 }

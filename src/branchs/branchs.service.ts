@@ -16,7 +16,12 @@ export class BranchsService {
   }
 
   findOne(id: number) {
-    return this.prisma.branch.findUnique({ where: { id } });
+    return this.prisma.branch.findUnique({
+      where: { id },
+      include: {
+        author: true,
+      },
+    });
   }
 
   update(id: number, updateBranchDto: UpdateBranchDto) {
