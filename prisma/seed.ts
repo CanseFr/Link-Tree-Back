@@ -3,7 +3,7 @@ import { PrismaClient } from '@prisma/client';
 const prisma = new PrismaClient();
 
 async function main() {
-  const post1 = await prisma.article.upsert({
+  const post1 = await prisma.branch.upsert({
     where: { title: 'Facebook' },
     update: {},
     create: {
@@ -12,7 +12,7 @@ async function main() {
     },
   });
 
-  const post2 = await prisma.article.upsert({
+  const post2 = await prisma.branch.upsert({
     where: { title: 'Instagram' },
     update: {},
     create: {
