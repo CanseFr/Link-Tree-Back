@@ -3,6 +3,7 @@ import {
   Controller,
   Delete,
   Get,
+  NotFoundException,
   Param,
   ParseIntPipe,
   Patch,
@@ -33,8 +34,12 @@ export class BranchsController {
 
   @Get(':id')
   @ApiOkResponse({ type: BranchEntity })
-  findOne(@Param('id', ParseIntPipe) id: number) {
-    return this.branchsService.findOne(id);
+  async findOne(@Param('id') id: string) {
+    const branch = await this.branchsService.findOne(+id);
+    if (!branch) {
+      throw new NotFoundException(`Article with ${id} does not exist.`);
+    }
+    return branch;
   }
 
   @Patch(':id')
