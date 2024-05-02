@@ -1,7 +1,7 @@
-import { Branch } from "@prisma/client";
-import { ApiProperty } from "@nestjs/swagger";
+import { Branch } from '@prisma/client';
+import { ApiProperty } from '@nestjs/swagger';
 
-export class BranchEntity implements Branch{
+export class BranchEntity implements Branch {
   @ApiProperty()
   id: number;
   @ApiProperty()

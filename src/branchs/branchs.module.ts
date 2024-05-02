@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { BranchsService } from './branchs.service';
 import { BranchsController } from './branchs.controller';
-import { PrismaModule } from "../prisma/prisma.module";
+import { PrismaModule } from '../prisma/prisma.module';
 
 @Module({
   controllers: [BranchsController],
