@@ -7,7 +7,7 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Article {
+model Branch {
   id          Int      @id @default(autoincrement())
   title       String   @unique
   description String?
