@@ -14,8 +14,10 @@ async function main() {
       password: passwordAdmin,
     },
     create: {
+      firstname: 'Admin',
+      lastname: 'ADMINLAST',
+      role: 'ADMIN',
       email: 'admin@admin.admin',
-      name: 'Admin ADMIN',
       password: passwordAdmin,
     },
   });
@@ -24,22 +26,25 @@ async function main() {
     where: { email: 'User@User.User' },
     update: {
       password: passwordUser,
-    },    create: {
+    },
+    create: {
+      firstname: 'User',
+      lastname: 'USERLAST',
+      role: 'USER',
       email: 'User@User.User',
-      name: 'User USER',
-      password: passwordUser
+      password: passwordUser,
     },
   });
 
   const post1 = await prisma.branch.upsert({
     where: { title: 'Facebook' },
-    update: {      authorId: user1.id,
+    update: {
+      authorId: user1.id,
     },
     create: {
       title: 'Facebook',
       description: 'Lien Facebook',
       authorId: user1.id,
-
     },
   });
 
@@ -47,13 +52,11 @@ async function main() {
     where: { title: 'Instagram' },
     update: {
       authorId: user2.id,
-
     },
     create: {
       title: 'Instagram',
       description: 'Line insta Http',
       authorId: user2.id,
-
     },
   });
 

@@ -19,7 +19,9 @@ model Branch {
 
 model User {
   id        Int      @id @default(autoincrement())
-  name      String?
+  firstname String
+  lastname  String
+  role      String
   email     String   @unique
   password  String
   createdAt DateTime @default(now())

@@ -30,6 +30,10 @@ export class AuthService {
 
     return {
       accessToken: this.jwtService.sign({ userId: user.id }),
+      role: user.role,
     };
   }
+
+  // REGISTER : AFFECTER LE ROLE USER
+  // REGISTERBYADMIN : Par un controller proteger avec un guard
 }
