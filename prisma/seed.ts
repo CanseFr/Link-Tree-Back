@@ -5,62 +5,101 @@ const prisma = new PrismaClient();
 const roundsOfHashing = 10;
 
 async function main() {
-  const passwordAdmin = await bcrypt.hash('adminadminadmin', roundsOfHashing);
-  const passwordUser = await bcrypt.hash('useruseruser', roundsOfHashing);
+  const password_admin_1 = await bcrypt.hash(
+    'adminadminadmin',
+    roundsOfHashing,
+  );
+  const password_user_1 = await bcrypt.hash('useruseruser', roundsOfHashing);
+  const password_user_blank = await bcrypt.hash(
+    'userblankuser',
+    roundsOfHashing,
+  );
 
-  const user1 = await prisma.user.upsert({
+  const user_admin_1 = await prisma.user.upsert({
     where: { email: 'admin@admin.admin' },
     update: {
-      password: passwordAdmin,
+      password: password_admin_1,
     },
     create: {
       firstname: 'Admin',
       lastname: 'ADMINLAST',
       role: 'ADMIN',
       email: 'admin@admin.admin',
-      password: passwordAdmin,
+      password: password_admin_1,
+      path: {
+        create: {
+          url_owner: '/urluser1',
+          branch: {
+            create: [
+              {
+                name_network: 'Soudcloud',
+                url_network: 'http://soundcloud.fr',
+              },
+              {
+                name_network: 'Youporn',
+                url_network: 'http://youporn.fr',
+              },
+              {
+                name_network: 'Prisma',
+                url_network: 'http://prisma.fr',
+              },
+            ],
+          },
+        },
+      },
     },
   });
 
-  const user2 = await prisma.user.upsert({
+  const user_user_1 = await prisma.user.upsert({
     where: { email: 'User@User.User' },
     update: {
-      password: passwordUser,
+      password: password_user_1,
     },
     create: {
       firstname: 'User',
       lastname: 'USERLAST',
       role: 'USER',
       email: 'User@User.User',
-      password: passwordUser,
+      password: password_user_1,
+      path: {
+        create: {
+          url_owner: '/urladmin1',
+          branch: {
+            create: [
+              {
+                name_network: 'Instagram',
+                url_network: 'http://insta.fr',
+              },
+              {
+                name_network: 'Facebook',
+                url_network: 'http://facebook.fr',
+              },
+              {
+                name_network: 'Tweeter',
+                url_network: 'http://tweeter.fr',
+              },
+            ],
+          },
+        },
+      },
     },
   });
 
-  const post1 = await prisma.branch.upsert({
-    where: { title: 'Facebook' },
+  const user_user_blank = await prisma.user.upsert({
+    where: { email: 'User@User.User' },
     update: {
-      authorId: user1.id,
+      password: password_user_blank,
     },
     create: {
-      title: 'Facebook',
-      description: 'Lien Facebook',
-      authorId: user1.id,
+      firstname: 'User',
+      lastname: 'USERBLANK',
+      role: 'USER',
+      email: 'User@blank.User',
+      password: password_user_blank,
     },
   });
 
-  const post2 = await prisma.branch.upsert({
-    where: { title: 'Instagram' },
-    update: {
-      authorId: user2.id,
-    },
-    create: {
-      title: 'Instagram',
-      description: 'Line insta Http',
-      authorId: user2.id,
-    },
-  });
-
-  console.log({ post1, post2 });
+  console.log(user_admin_1, user_user_1, user_user_blank);
 }
 
 main()

@@ -45,6 +45,19 @@ $ npm run start:dev
 $ npm run start:prod
 ```
 
+
+## Prisma
+
+```bash
+# Save the migration, Execute the migration & Generate Prisma Client
+npx prisma migrate dev --name "init"
+
+
+# Execute seeding with the following command:
+npx prisma db seed
+
+```
+
 ## Test
 
 ```bash

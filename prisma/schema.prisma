@@ -7,24 +7,34 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Branch {
-  id          Int      @id @default(autoincrement())
-  title       String   @unique
-  description String?
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-  author      User?    @relation(fields: [authorId], references: [id])
-  authorId    Int?
+model BranchNetwork {
+  id           Int        @id @default(autoincrement())
+  name_network String     @unique
+  url_network  String?
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
+  path         PathProfil @relation(fields: [pathId], references: [id])
+  pathId       Int
+}
+
+model PathProfil {
+  id        Int             @id @default(autoincrement())
+  url_owner String          @unique
+  createdAt DateTime        @default(now())
+  updatedAt DateTime        @updatedAt
+  branch    BranchNetwork[]
+  User      User            @relation(fields: [userId], references: [id])
+  userId    Int             @unique
 }
 
 model User {
-  id        Int      @id @default(autoincrement())
+  id        Int         @id @default(autoincrement())
   firstname String
   lastname  String
   role      String
-  email     String   @unique
+  email     String      @unique
   password  String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  branche   Branch[]
+  createdAt DateTime    @default(now())
+  updatedAt DateTime    @updatedAt
+  path      PathProfil?
 }
