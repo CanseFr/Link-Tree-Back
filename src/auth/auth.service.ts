@@ -7,6 +7,8 @@ import { PrismaService } from '../prisma/prisma.service';
 import { JwtService } from '@nestjs/jwt';
 import { AuthEntity } from './entities/auth.entity';
 import * as bcrypt from 'bcrypt';
+import { CreateUserDto } from '../users/dto/create-user.dto';
+import { roundsOfHashing } from '../users/users.service';
 
 @Injectable()
 export class AuthService {
@@ -31,6 +33,18 @@ export class AuthService {
     return {
       accessToken: this.jwtService.sign({ userId: user.id, role: user.role }),
     };
+  }
+
+  async register(createUserDto: CreateUserDto) {
+    createUserDto.password = await bcrypt.hash(
+      createUserDto.password,
+      roundsOfHashing,
+    );
+    createUserDto.role = 'USER';
+
+    return this.prisma.user.create({
+      data: createUserDto,
+    });
   }
 
   // REGISTER : AFFECTER LE ROLE USER
