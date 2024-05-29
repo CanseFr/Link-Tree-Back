@@ -22,8 +22,8 @@ model PathProfil {
   url_owner String          @unique
   createdAt DateTime        @default(now())
   updatedAt DateTime        @updatedAt
-  branch    BranchNetwork[]
-  User      User            @relation(fields: [userId], references: [id])
+  branchs   BranchNetwork[]
+  user      User            @relation(fields: [userId], references: [id])
   userId    Int             @unique
 }
 

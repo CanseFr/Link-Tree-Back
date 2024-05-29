@@ -29,7 +29,7 @@ async function main() {
       path: {
         create: {
           url_owner: '/urluser1',
-          branch: {
+          branchs: {
             create: [
               {
                 name_network: 'Soudcloud',
@@ -64,7 +64,7 @@ async function main() {
       path: {
         create: {
           url_owner: '/urladmin1',
-          branch: {
+          branchs: {
             create: [
               {
                 name_network: 'Instagram',

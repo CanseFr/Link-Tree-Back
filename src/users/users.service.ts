@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Get, Injectable, Param } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { PrismaService } from '../prisma/prisma.service';
@@ -44,5 +44,18 @@ export class UsersService {
 
   remove(id: number) {
     return this.prisma.user.delete({ where: { id } });
+  }
+
+  findCompletInfoByUserId(id: number) {
+    return this.prisma.user.findUnique({
+      where: { id },
+      include: {
+        path: {
+          include: {
+            branchs: true,
+          },
+        },
+      },
+    });
   }
 }
