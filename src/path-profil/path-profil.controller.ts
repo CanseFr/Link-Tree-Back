@@ -49,4 +49,11 @@ export class PathProfilController {
   findCompletBranchByUserId(@Param('id') id: string) {
     return this.pathProfilService.findCompletBranchByUserId(+id);
   }
+
+  @Get('/getpath/:url_owner')
+  findCompletBranchByUserPath(@Param('url_owner') url_owner: string) {
+    return this.pathProfilService.findCompletBranchByUserPath(
+      String('/').concat(url_owner),
+    );
+  }
 }
