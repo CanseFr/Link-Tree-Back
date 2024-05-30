@@ -2,8 +2,8 @@ import {
   Controller,
   Get,
   // Post,
-  // Body,
-  // Patch,
+  Body,
+  Patch,
   Param,
   // Delete,
 } from '@nestjs/common';
@@ -11,6 +11,7 @@ import { PathProfilService } from './path-profil.service';
 // import { CreatePathProfilDto } from './dto/create-path-profil.dto';
 // import { UpdatePathProfilDto } from './dto/update-path-profil.dto';
 import { ApiTags } from '@nestjs/swagger';
+import { UpdatePathProfilDto } from './dto/update-path-profil.dto';
 
 @Controller('path-profil')
 @ApiTags('path-profil')
@@ -32,13 +33,14 @@ export class PathProfilController {
   //   return this.pathProfilService.findOne(+id);
   // }
 
-  // @Patch(':id')
-  // update(
-  //   @Param('id') id: string,
-  //   @Body() updatePathProfilDto: UpdatePathProfilDto,
-  // ) {
-  //   return this.pathProfilService.update(+id, updatePathProfilDto);
-  // }
+  @Patch(':id')
+  update(
+    @Param('id') id: string,
+    @Body() updatePathProfilDto: UpdatePathProfilDto,
+  ) {
+    console.log(updatePathProfilDto);
+    return this.pathProfilService.update(+id, updatePathProfilDto);
+  }
 
   // @Delete(':id')
   // remove(@Param('id') id: string) {

@@ -1,10 +1,8 @@
-import { Get, Injectable, Param } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { PrismaService } from '../prisma/prisma.service';
 import * as bcrypt from 'bcrypt';
-import { plainToClass } from 'class-transformer';
-import { UserEntity } from './entities/user.entity';
 
 export const roundsOfHashing = 10;
 
