@@ -17,6 +17,10 @@ model BranchNetwork {
   pathId       Int
 }
 
+// AJOUTER :
+//           - BIO
+//           - Url Photo Profil
+
 model PathProfil {
   id        Int             @id @default(autoincrement())
   url_owner String          @unique
