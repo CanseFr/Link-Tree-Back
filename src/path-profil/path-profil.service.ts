@@ -20,7 +20,7 @@ export class PathProfilService {
   }
 
   update(id: number, updatePathProfilDto: UpdatePathProfilDto) {
-    return `This action updates a #${id} pathProfil`;
+    return `This action updates a #${id} pathProfil ` + updatePathProfilDto;
   }
 
   remove(id: number) {
@@ -30,6 +30,13 @@ export class PathProfilService {
   findCompletBranchByUserId(id: number) {
     return this.prisma.pathProfil.findUnique({
       where: { id },
+      include: { branchs: true },
+    });
+  }
+
+  findCompletBranchByUserPath(url_owner: string) {
+    return this.prisma.pathProfil.findUnique({
+      where: { url_owner: url_owner },
       include: { branchs: true },
     });
   }
