@@ -24,6 +24,7 @@ model BranchNetwork {
 model PathProfil {
   id        Int             @id @default(autoincrement())
   url_owner String          @unique
+  bio       String?
   createdAt DateTime        @default(now())
   updatedAt DateTime        @updatedAt
   branchs   BranchNetwork[]

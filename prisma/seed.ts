@@ -9,9 +9,8 @@ async function main() {
     'adminadminadmin',
     roundsOfHashing,
   );
-  const password_user_1 = await bcrypt.hash('useruseruser', roundsOfHashing);
-  const password_user_blank = await bcrypt.hash(
-    'userblankuser',
+  const password_user_1 = await bcrypt.hash(
+    'useruseruser',
     roundsOfHashing,
   );
 
@@ -29,6 +28,7 @@ async function main() {
       path: {
         create: {
           url_owner: '/urluser1',
+          bio: "Je suis la bio de l'utilisateur admin et voila voila",
           branchs: {
             create: [
               {
@@ -64,6 +64,7 @@ async function main() {
       path: {
         create: {
           url_owner: '/urladmin1',
+          bio: "Je suis la bio de l'utilisateur user et voila voila",
           branchs: {
             create: [
               {
@@ -88,14 +89,14 @@ async function main() {
   const user_user_blank = await prisma.user.upsert({
     where: { email: 'User@User.User' },
     update: {
-      password: password_user_blank,
+      password: password_user_1,
     },
     create: {
       firstname: 'User',
       lastname: 'USERBLANK',
       role: 'USER',
       email: 'User@blank.User',
-      password: password_user_blank,
+      password: password_user_1,
     },
   });
 

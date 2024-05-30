@@ -5,5 +5,6 @@ export class PathProfilEntity implements PathProfil {
   id: number;
   updatedAt: Date;
   url_owner: string;
+  bio: string;
   userId: number;
 }
