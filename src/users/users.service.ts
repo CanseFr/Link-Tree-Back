@@ -3,6 +3,8 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { PrismaService } from '../prisma/prisma.service';
 import * as bcrypt from 'bcrypt';
+import { plainToClass } from 'class-transformer';
+import { UserEntity } from './entities/user.entity';
 
 export const roundsOfHashing = 10;
 
@@ -46,8 +48,8 @@ export class UsersService {
     return this.prisma.user.delete({ where: { id } });
   }
 
-  findCompletInfoByUserId(id: number) {
-    return this.prisma.user.findUnique({
+  async indCompletInfoByUserId(id: number) {
+    const user = await this.prisma.user.findUnique({
       where: { id },
       include: {
         path: {
@@ -57,5 +59,8 @@ export class UsersService {
         },
       },
     });
+
+    user.password = '';
+    return user;
   }
 }

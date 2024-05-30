@@ -70,8 +70,8 @@ export class UsersController {
     return new UserEntity(await this.usersService.remove(id));
   }
 
-  @Get('/test/:id')
+  @Get('/complet/:id')
   findCompletInfoByUserId(@Param('id') id: string) {
-    return this.usersService.findCompletInfoByUserId(+id);
+    return this.usersService.indCompletInfoByUserId(+id);
   }
 }
