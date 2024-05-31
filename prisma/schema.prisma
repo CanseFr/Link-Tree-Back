@@ -18,7 +18,6 @@ model BranchNetwork {
 }
 
 // AJOUTER :
-//           - BIO
 //           - Url Photo Profil
 
 model PathProfil {

@@ -44,5 +44,4 @@ export class BranchNetworkController {
   remove(@Param('id') id: string) {
     return this.branchNetworkService.remove(+id);
   }
-
 }

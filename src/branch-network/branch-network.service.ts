@@ -19,10 +19,11 @@ export class BranchNetworkService {
     return this.prisma.branchNetwork.findUnique({ where: { id } });
   }
 
-  update(id: number, updateBranchNetworkDto: UpdateBranchNetworkDto) {
-    return (
-      `This action updates a #${id} branchNetwork` + updateBranchNetworkDto
-    );
+  async update(id: number, updateBranchNetworkDto: UpdateBranchNetworkDto) {
+    return this.prisma.branchNetwork.update({
+      where: { id },
+      data: { name_network: updateBranchNetworkDto.name_network },
+    });
   }
 
   remove(id: number) {

@@ -2,11 +2,15 @@ import { Injectable } from '@nestjs/common';
 // import { CreatePathProfilDto } from './dto/create-path-profil.dto';
 import { PrismaService } from '../prisma/prisma.service';
 import { UpdatePathProfilDto } from './dto/update-path-profil.dto';
+import { BranchNetworkService } from '../branch-network/branch-network.service';
 // import { UpdatePathProfilDto } from './dto/update-path-profil.dto';
 
 @Injectable()
 export class PathProfilService {
-  constructor(private prisma: PrismaService) {}
+  constructor(
+    private prisma: PrismaService,
+    private beanchService: BranchNetworkService,
+  ) {}
 
   // create(createPathProfilDto: CreatePathProfilDto) {
   //   return this.prisma.pathProfil.create({ data: createPathProfilDto });
@@ -21,10 +25,9 @@ export class PathProfilService {
   // }
 
   update(id: number, updatePathProfilDto: UpdatePathProfilDto) {
-    return this.prisma.pathProfil.update({
-      where: { userId: id },
-      data: updatePathProfilDto,
-    });
+    return updatePathProfilDto.branchs.map((b, index) =>
+      this.beanchService.update(b.id, updatePathProfilDto.branchs[index]),
+    );
   }
 
   // remove(id: number) {
