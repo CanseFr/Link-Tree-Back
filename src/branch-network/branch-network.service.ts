@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { CreateBranchNetworkDto } from './dto/create-branch-network.dto';
 import { UpdateBranchNetworkDto } from './dto/update-branch-network.dto';
 import { PrismaService } from '../prisma/prisma.service';
+import { UpdatePathProfilDto } from '../path-profil/dto/update-path-profil.dto';
 
 @Injectable()
 export class BranchNetworkService {
@@ -24,6 +25,12 @@ export class BranchNetworkService {
       where: { id },
       data: { name_network: updateBranchNetworkDto.name_network },
     });
+  }
+
+  updateBranchs(id: number, updatePathProfilDto: UpdatePathProfilDto) {
+    return updatePathProfilDto.branchs.map((b, index) =>
+      this.update(b.id, updatePathProfilDto.branchs[index]),
+    );
   }
 
   remove(id: number) {

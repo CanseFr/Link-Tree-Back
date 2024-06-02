@@ -1,33 +1,42 @@
 import { Injectable } from '@nestjs/common';
-// import { CreatePathProfilDto } from './dto/create-path-profil.dto';
+import { CreatePathProfilDto } from './dto/create-path-profil.dto';
 import { PrismaService } from '../prisma/prisma.service';
 import { UpdatePathProfilDto } from './dto/update-path-profil.dto';
-import { BranchNetworkService } from '../branch-network/branch-network.service';
-// import { UpdatePathProfilDto } from './dto/update-path-profil.dto';
 
 @Injectable()
 export class PathProfilService {
-  constructor(
-    private prisma: PrismaService,
-    private beanchService: BranchNetworkService,
-  ) {}
+  constructor(private prisma: PrismaService) {}
 
-  // create(createPathProfilDto: CreatePathProfilDto) {
-  //   return this.prisma.pathProfil.create({ data: createPathProfilDto });
-  // }
+  async create(createPathProfilDto: CreatePathProfilDto) {
+    const { branchs, ...pathProfilData } = createPathProfilDto;
+    return this.prisma.pathProfil.create({
+      data: {
+        ...pathProfilData,
+        branchs: {
+          create: branchs,
+        },
+      },
+    });
+  }
+
+  update(id: number, updatePathProfilDto: UpdatePathProfilDto) {
+    const { branchs, ...pathProfilData } = updatePathProfilDto;
+    return this.prisma.pathProfil.update({
+      where: { id },
+      data: {
+        url_owner: pathProfilData.url_owner,
+        bio: pathProfilData.bio,
+        bgColor: pathProfilData.bgColor,
+      },
+    });
+  }
 
   // findAll() {
   //   return this.prisma.pathProfil.findMany();
   // }
   //
-  // findOne(id: number) {
-  //   return this.prisma.pathProfil.findUnique({ where: { id } });
-  // }
-
-  update(id: number, updatePathProfilDto: UpdatePathProfilDto) {
-    return updatePathProfilDto.branchs.map((b, index) =>
-      this.beanchService.update(b.id, updatePathProfilDto.branchs[index]),
-    );
+  findOne(id: number) {
+    return this.prisma.pathProfil.findUnique({ where: { id } });
   }
 
   // remove(id: number) {

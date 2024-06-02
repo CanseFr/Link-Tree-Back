@@ -11,6 +11,7 @@ import { BranchNetworkService } from './branch-network.service';
 import { CreateBranchNetworkDto } from './dto/create-branch-network.dto';
 import { UpdateBranchNetworkDto } from './dto/update-branch-network.dto';
 import { ApiTags } from '@nestjs/swagger';
+import { UpdatePathProfilDto } from '../path-profil/dto/update-path-profil.dto';
 
 @Controller('branch-network')
 @ApiTags('branch-network')
@@ -38,6 +39,14 @@ export class BranchNetworkController {
     @Body() updateBranchNetworkDto: UpdateBranchNetworkDto,
   ) {
     return this.branchNetworkService.update(+id, updateBranchNetworkDto);
+  }
+
+  @Patch('all/:id')
+  updateBranchs(
+    @Param('id') id: string,
+    @Body() updatePathProfilDto: UpdatePathProfilDto,
+  ) {
+    return this.branchNetworkService.updateBranchs(+id, updatePathProfilDto);
   }
 
   @Delete(':id')

@@ -86,7 +86,7 @@ async function main() {
   });
 
   const user_user_blank = await prisma.user.upsert({
-    where: { email: 'User@User.User' },
+    where: { email: 'User@blank.User' },
     update: {
       password: password_user_1,
     },

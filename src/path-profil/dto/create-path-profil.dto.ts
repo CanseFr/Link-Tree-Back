@@ -1,10 +1,9 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsArray, IsOptional, IsString } from 'class-validator';
+import { IsArray, IsNumber, IsOptional, IsString } from 'class-validator';
 import { BranchNetworkEntity } from '../../branch-network/entities/branch-network.entity';
 
 export class CreatePathProfilDto {
-  @ApiProperty()
-  id: number;
+  // id: number;
 
   @IsString()
   @IsOptional()
@@ -15,6 +14,10 @@ export class CreatePathProfilDto {
   @IsOptional()
   @ApiProperty()
   bgColor: string;
+
+  @IsNumber()
+  @ApiProperty()
+  userId: number;
 
   @IsString()
   @IsOptional()
